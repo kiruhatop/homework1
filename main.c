@@ -79,8 +79,7 @@ int main(void)
 }
 
 //Ввод массива
-void inputArray(int array[], int size)
-{
+void inputArray(int array[], int size) {
     printf("Введите %d целых чисел:\n", size);
     for (int i = 0; i < size; i++) {
         while (scanf("%d", &array[i]) != 1) {
@@ -91,8 +90,7 @@ void inputArray(int array[], int size)
 }
 
 //Вывод массива
-void printArray(const int array[], int size)
-{
+void printArray(const int array[], int size) {
     for (int i = 0; i < size; i++) {
         printf("%d", array[i]);
         if (i != size - 1) {
@@ -103,8 +101,7 @@ void printArray(const int array[], int size)
 }
 
 //Минимальное значение в массиве
-int findMin(const int array[], int size)
-{
+int findMin(const int array[], int size) {
     int min = array[0];
     for (int i = 1; i < size; i++) {
         if (array[i] < min) {
@@ -115,8 +112,7 @@ int findMin(const int array[], int size)
 }
 
 //Максимальное значение в массиве
-int findMax(const int array[], int size)
-{
+int findMax(const int array[], int size) {
     int max = array[0];
     for (int i = 1; i < size; i++) {
         if (array[i] > max) {
@@ -127,8 +123,7 @@ int findMax(const int array[], int size)
 }
 
 //Минимальный индекс в массиве
-int findMinIndex(const int array[], int size)
-{
+int findMinIndex(const int array[], int size) {
     int idx = 0;
     for (int i = 1; i < size; i++) {
         if (array[i] < array[idx]) {
@@ -139,8 +134,7 @@ int findMinIndex(const int array[], int size)
 }
 
 //Максимальный индекс в массиве
-int findMaxIndex(const int array[], int size)
-{
+int findMaxIndex(const int array[], int size) {
     int idx = 0;
     for (int i = 1; i < size; i++) {
         if (array[i] > array[idx]) {
@@ -151,8 +145,7 @@ int findMaxIndex(const int array[], int size)
 }
 
 //Сумма
-long long calculateSum(const int array[], int size)
-{
+long long calculateSum(const int array[], int size) {
     long long sum = 0;
     for (int i = 0; i < size; i++) {
         sum += array[i];
@@ -161,14 +154,12 @@ long long calculateSum(const int array[], int size)
 }
 
 //Среднее арифметическое
-double calculateAverage(const int array[], int size)
-{
+double calculateAverage(const int array[], int size) {
     return (double)calculateSum(array, size) / size;
 }
 
 //Положительные, орицатальные или нули
-void countSigns(const int array[], int size, int *pos, int *neg, int *zero)
-{
+void countSigns(const int array[], int size, int *pos, int *neg, int *zero) {
     *pos = *neg = *zero = 0;
     for (int i = 0; i < size; i++) {
         if (array[i] > 0) {
@@ -182,8 +173,7 @@ void countSigns(const int array[], int size, int *pos, int *neg, int *zero)
 }
 
 //Чётные и нечётные
-void countParity(const int array[], int size, int *even, int *odd)
-{
+void countParity(const int array[], int size, int *even, int *odd) {
     *even = *odd = 0;
     for (int i = 0; i < size; i++) {
         if (array[i] % 2 == 0) {
@@ -195,8 +185,7 @@ void countParity(const int array[], int size, int *even, int *odd)
 }
 
 //Числа в диапазоне
-void printInRange(const int array[], int size, int a, int b)
-{
+void printInRange(const int array[], int size, int a, int b) {
     int found = 0;
     for (int i = 0; i < size; i++) {
         if (array[i] >= a && array[i] <= b) {
@@ -209,37 +198,37 @@ void printInRange(const int array[], int size, int a, int b)
     }
 }
 
-//Поставление негативных чисел в начало массива
-void moveNegativesFirst(int array[], int size)
-{
-    int temp[MAX_SIZE];
-    int pos = 0;
-
-    for (int i = 0; i < size; i++) {
-        if (array[i] < 0) {
-            temp[pos++] = array[i];
+//Удаление повторений
+void deletesimilarities(int array[], int size) {
+    int check = 0;
+    for (int i = 0; i<size; i++) {
+        check = array[i];
+        int pos = i;
+        int cnt = 0;
+        for (int i = 0; i<size; i++) {
+            if (check == array[i]){
+                cnt += 1;
+            }
         }
-    }
-
-    for (int i = 0; i < size; i++) {
-        if (array[i] >= 0) {
-            temp[pos++] = array[i];
+        if (cnt>1) {
+            for (int c = pos; c < size - 1; c++){
+            array[c] = array[c+1];                
+            }
+            
         }
-    }
-
-    for (int i = 0; i < size; i++) {
-        array[i] = temp[i];
     }
 }
 
 //Вывод результата
-void performIndividualTask(int array[], int size)
-{
+void performIndividualTask(int array[], int size) {
     printf("Массив до перестановки:\n");
     printArray(array, size);
 
-    moveNegativesFirst(array, size);
+    deletesimilarities(array, size);
 
-    printf("Отрицательные элементы в начале:\n");
-    printArray(array, size);
+    printf("Удаление повторений:\n");
+    //Вывод нового массива
+    for (int c = 0; c < size - 1; c++){
+                printf("%d ", array[c]);
+            }
 }
