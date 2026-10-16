@@ -200,40 +200,34 @@ void printInRange(const int array[], int size, int a, int b) {
 }
 
 //Удаление повторений
-void deletesimilarities(int array[], int size) {
-    int check = 0;
-    for (int i = 0; i<size; i++) {
-        check = array[i];
-        int pos = i;
-        int cnt = 0;
-        for (int i = 0; i<size; i++) {
-            if (check == array[i]){
-                cnt += 1;
+int removeDuplicatesInPlace(int array[], int size) {
+    int newSize = 0;
+
+    for (int i = 0; i < size; i++) {
+        int alreadyExists = 0;
+        for (int j = 0; j < newSize; j++) {
+            if (array[j] == array[i]) {
+                alreadyExists = 1;
+                break;
             }
         }
-        if (cnt>1) {
-            int d = 0;
-            d = cnt - 1;
-            count = cnt;
-            for (int c = pos; c < size - d; c++){
-            array[c] = array[c+1];                
-            }
-            
+        if (!alreadyExists) {
+            array[newSize] = array[i];
+            newSize++;
         }
     }
+
+    return newSize;
 }
 
-//Вывод результата
+//Вывод результата индивидуального задания
 void performIndividualTask(int array[], int size) {
-    printf("Массив до перестановки:\n");
+    printf("\n=== Индивидуальное задание: удаление повторений ===\n");
+    printf("Массив до обработки:\n");
     printArray(array, size);
 
-    deletesimilarities(array, size);
+    int newSize = removeDuplicatesInPlace(array, size);
 
-    printf("Удаление повторений:\n");
-    //Вывод нового массива
-    int d = count - 1;
-    for (int c = 0; c < size - d; c++){
-                printf("%d ", array[c]);
-            }
+    printf("Массив после удаления повторений (%d элементов):\n", newSize);
+    printArray(array, newSize);
 }
